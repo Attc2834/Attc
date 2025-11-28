@@ -1,0 +1,20 @@
+# Screen settings
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
+FPS = 60
+TILE_SIZE = 64
+
+# Colors
+COLOR_BG = (20, 10, 30)  # Dark blue/purple/black
+COLOR_PLAYER = (200, 200, 200)
+COLOR_LANTERN_LIGHT = (255, 180, 40) # Bright orange/yellow
+COLOR_MIST = (50, 20, 60)
+COLOR_GROUND = (40, 40, 50)
+COLOR_BRIDGE_PAST = (150, 100, 50) # Wood/Solid
+COLOR_BRIDGE_FUTURE = (50, 50, 60) # Broken/Ghostly
+
+# Physics
+GRAVITY = 0.8
+PLAYER_SPEED = 5
+PLAYER_JUMP = -16
+LANTERN_RADIUS = 150
