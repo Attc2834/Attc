@@ -56,7 +56,7 @@ fullscreen = 0
 android.presplash_color = #0D0D0D
 
 # (list) Permissions
-android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,moe.shizuku.manager.permission.API_V23
+android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,MANAGE_EXTERNAL_STORAGE,moe.shizuku.manager.permission.API_V23
 
 # (int) Target Android API, should be as high as possible.
 android.api = 33
