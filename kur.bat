@@ -27,11 +27,11 @@ python --version
 echo  [OK] Python mevcut.
 echo.
 
-:: Playwright tarayıcı kurulumu
+:: Python kütüphaneleri
 echo  [2/3] Python kutuphaneleri kuruluyor...
-echo  (Bu islem birkaç dakika surebilir)
+echo  (Bu islem birkac dakika surebilir)
 echo.
-pip install customtkinter google-generativeai edge-tts SpeechRecognition PyAudio pvporcupine playwright Pillow pydub aiohttp
+pip install customtkinter google-generativeai edge-tts SpeechRecognition PyAudio openwakeword playwright Pillow pydub aiohttp numpy
 echo.
 echo  [OK] Kutuphaneler kuruldu.
 echo.

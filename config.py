@@ -7,9 +7,6 @@ Central configuration for API keys, paths, and settings.
 # ── API Keys ──────────────────────────────────────────────
 GEMINI_API_KEY = "AIzaSyAkXETk_EonGb7FkjTKGWCeipxVTXoCs30"
 
-# Picovoice (Porcupine) - Free tier key (get yours at https://console.picovoice.ai/)
-PORCUPINE_ACCESS_KEY = ""
-
 # ── Application Settings ─────────────────────────────────
 APP_NAME = "Attc Jarvis"
 APP_VERSION = "1.0.0"
@@ -55,5 +52,6 @@ USER_NAME = "Kullanıcı"
 # ── Conversation Memory ──────────────────────────────────
 MEMORY_BUFFER_SIZE = 20  # Number of recent messages to keep
 
-# ── Paths ─────────────────────────────────────────────────
+# ── Wake Word ─────────────────────────────────────────────
 WAKE_WORD_KEYWORD = "jarvis"
+WAKE_WORD_THRESHOLD = 0.5  # openwakeword detection sensitivity (0.0 - 1.0)

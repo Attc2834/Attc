@@ -6,11 +6,8 @@ Premium dark-mode branded interface using CustomTkinter.
 
 from __future__ import annotations
 
-import asyncio
 import threading
-import time
 from datetime import datetime
-from typing import Callable
 
 import customtkinter as ctk
 
@@ -330,11 +327,9 @@ class AttcJarvisApp(ctk.CTk):
         self._process_command(text)
 
     def _on_voice_command(self, text: str) -> None:
-        """Called from listener thread when a voice command is detected."""
         self.after(0, lambda: self._process_command(text))
 
     def _on_listener_status(self, status: str) -> None:
-        """Called from listener thread with status updates."""
         self.after(0, lambda: self._set_status(status))
 
     # ══════════════════════════════════════════════════════
@@ -346,20 +341,17 @@ class AttcJarvisApp(ctk.CTk):
         self._set_status("Düşünüyor...")
         self._mic_indicator.configure(text_color=COLORS["mic_processing"])
 
-        thread = threading.Thread(target=self._async_process, args=(text,), daemon=True)
+        thread = threading.Thread(target=self._background_process, args=(text,), daemon=True)
         thread.start()
 
-    def _async_process(self, text: str) -> None:
+    def _background_process(self, text: str) -> None:
         try:
-            result, func_call = asyncio.run(self._brain.think(text))
+            result, func_call = self._brain.think(text)
 
             if func_call is not None:
-                # Gemini requested a function call
-                func_name = result  # result is the function name when func_call is not None
+                func_name = result
                 self.after(0, lambda: self._set_status(f"Çalıştırılıyor: {func_name}..."))
-
-                automation_result = execute_function(func_name, func_call)
-                response = automation_result
+                response = execute_function(func_name, func_call)
             else:
                 response = result
 
