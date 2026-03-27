@@ -31,7 +31,7 @@ echo.
 echo  [2/3] Python kutuphaneleri kuruluyor...
 echo  (Bu islem birkac dakika surebilir)
 echo.
-pip install customtkinter google-generativeai edge-tts SpeechRecognition PyAudio openwakeword playwright Pillow pydub aiohttp numpy
+pip install customtkinter google-genai edge-tts SpeechRecognition PyAudio openwakeword playwright Pillow pygame aiohttp numpy
 echo.
 echo  [OK] Kutuphaneler kuruldu.
 echo.

@@ -2,28 +2,25 @@
 Attc Jarvis - Voice Engine
 ============================
 Speech-to-Text (STT) via SpeechRecognition + Google
-Text-to-Speech (TTS) via edge-tts (free, unlimited, human-like)
+Text-to-Speech (TTS) via edge-tts + pygame for playback (no ffmpeg needed)
 """
 
 from __future__ import annotations
 
 import asyncio
-import io
+import os
 import tempfile
 import threading
 from pathlib import Path
 
 import edge_tts
+import pygame
 import speech_recognition as sr
 
 import config
 
-try:
-    from pydub import AudioSegment
-    from pydub.playback import play as pydub_play
-    HAS_PYDUB = True
-except ImportError:
-    HAS_PYDUB = False
+# Initialize pygame mixer once
+pygame.mixer.init()
 
 
 class SpeechToText:
@@ -60,7 +57,7 @@ class SpeechToText:
 
 
 class TextToSpeech:
-    """Human-like TTS powered by edge-tts (free & unlimited)."""
+    """Human-like TTS powered by edge-tts (free & unlimited), played via pygame."""
 
     def __init__(self, language: str = "tr") -> None:
         self._language = language
@@ -98,22 +95,17 @@ class TextToSpeech:
             volume=config.TTS_VOLUME,
         )
 
-        with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp:
-            tmp_path = tmp.name
-
+        tmp_path = os.path.join(tempfile.gettempdir(), "jarvis_tts.mp3")
         await communicate.save(tmp_path)
 
-        if HAS_PYDUB:
-            audio = AudioSegment.from_mp3(tmp_path)
-            pydub_play(audio)
-        else:
-            # Fallback: use system player
-            import subprocess
-            import sys
-            if sys.platform == "win32":
-                import os
-                os.startfile(tmp_path)
-            else:
-                subprocess.run(["mpv", "--no-video", tmp_path], capture_output=True)
-
-        Path(tmp_path).unlink(missing_ok=True)
+        # Play with pygame (works on Windows without ffmpeg)
+        try:
+            pygame.mixer.music.load(tmp_path)
+            pygame.mixer.music.play()
+            while pygame.mixer.music.get_busy():
+                pygame.time.wait(100)
+        except Exception as e:
+            print(f"[Playback Error] {e}")
+        finally:
+            pygame.mixer.music.unload()
+            Path(tmp_path).unlink(missing_ok=True)
